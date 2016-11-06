@@ -52,7 +52,7 @@ class Googler(callbacks.Plugin):
 
     def google(self, irc, msg, args, search):
         """<query>
-        
+
         Searhes google using the googler tool
         """
         googlerCmd = self.registryValue('command')
