@@ -59,7 +59,7 @@ class Googler(callbacks.Plugin):
         if googlerCmd:
             try:
                 with open(os.devnull, 'r+') as null:
-                    inst = subprocess.Popen([googlerCmd, '-n', '1', '--json', search],
+                    inst = subprocess.Popen([googlerCmd, '--json', search],
                                             stdout=subprocess.PIPE,
                                             stderr=subprocess.PIPE,
                                             stdin=null)
@@ -71,8 +71,11 @@ class Googler(callbacks.Plugin):
             inst.wait()
             if out:
                 response = json.loads(out.decode('utf-8'))
-                for res in response:
-                    irc.reply('{} <{}>'.format(res['title'], res['url']))
+                first = response.pop(0)
+                if first:
+                    irc.reply('{} <{}>'.format(first['title'], first['url']))
+                else:
+                    irc.reply('No results found.')
             elif err:
                 response = err.decode('utf-8').splitlines()
                 irc.replies(response, joiner=' ')
