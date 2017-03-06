@@ -71,9 +71,9 @@ class Googler(callbacks.Plugin):
             inst.wait()
             if out:
                 response = json.loads(out.decode('utf-8'))
-                first = response.pop(0)
-                if first:
-                    irc.reply('{} <{}>'.format(first['title'], first['url']))
+                if response:
+                    res = response[0]
+                    irc.reply('{} <{}>'.format(res['title'], res['url']))
                 else:
                     irc.reply('No results found.')
             elif err:
