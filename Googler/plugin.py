@@ -47,19 +47,19 @@ except ImportError:
 
 
 class Googler(callbacks.Plugin):
-    """Plugin for wrapping the Googler tool"""
+    """Plugin for wrapping the googler tool"""
     threaded = True
 
     def google(self, irc, msg, args, search):
         """<query>
 
-        Searhes google using the googler tool
+        Searches Google using the googler tool
         """
         googlerCmd = self.registryValue('command')
         if googlerCmd:
             try:
                 with open(os.devnull, 'r+') as null:
-                    inst = subprocess.Popen([googlerCmd, '--json', search],
+                    inst = subprocess.Popen([googlerCmd, '--json --lang en', search],
                                             stdout=subprocess.PIPE,
                                             stderr=subprocess.PIPE,
                                             stdin=null)
