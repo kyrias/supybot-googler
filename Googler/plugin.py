@@ -56,10 +56,11 @@ class Googler(callbacks.Plugin):
         Searhes google using the googler tool
         """
         googlerCmd = self.registryValue('command')
+        googlerArgs = self.registryValue('arguments')
         if googlerCmd:
             try:
                 with open(os.devnull, 'r+') as null:
-                    inst = subprocess.Popen([googlerCmd, '--json', search],
+                    inst = subprocess.Popen([googlerCmd, *googlerArgs, '--json', search],
                                             stdout=subprocess.PIPE,
                                             stderr=subprocess.PIPE,
                                             stdin=null)

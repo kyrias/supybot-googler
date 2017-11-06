@@ -54,6 +54,9 @@ conf.registerGlobalValue(Googler, 'command',
         registry.String(utils.findBinaryInPath('googler') or '',
                         _("""Determines what command will be called for the
                              googler command.""")))
+conf.registerGlobalValue(Googler, 'arguments',
+        registry.SpaceSeparatedListOfStrings(
+            '', _('''Command-line arguments to pass to googler''')))
 # This is where your configuration variables (if any) should go.  For example:
 # conf.registerGlobalValue(Googler, 'someConfigVariableName',
 #     registry.Boolean(False, _("""Help for someConfigVariableName.""")))
