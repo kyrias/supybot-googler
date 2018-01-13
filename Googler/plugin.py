@@ -30,6 +30,7 @@
 
 import os
 import json
+import shlex
 import subprocess
 
 import supybot.utils as utils
@@ -60,7 +61,11 @@ class Googler(callbacks.Plugin):
         if googlerCmd:
             try:
                 with open(os.devnull, 'r+') as null:
-                    inst = subprocess.Popen([googlerCmd, *googlerArgs, '--json', search],
+                    command = '{cmd} --json {args} -- {search}'.format(
+                        cmd=googlerCmd,
+                        args=' '.join(googlerArgs),
+                        search=search)
+                    inst = subprocess.Popen(shlex.split(args),
                                             stdout=subprocess.PIPE,
                                             stderr=subprocess.PIPE,
                                             stdin=null)
