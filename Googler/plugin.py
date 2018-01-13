@@ -61,11 +61,9 @@ class Googler(callbacks.Plugin):
         if googlerCmd:
             try:
                 with open(os.devnull, 'r+') as null:
-                    command = '{cmd} --json {args} -- {search}'.format(
-                        cmd=googlerCmd,
-                        args=' '.join(googlerArgs),
-                        search=search)
-                    inst = subprocess.Popen(shlex.split(args),
+                    args = ['--json'] + googlerArgs
+                    command = [googlerCmd, *args, '--', shlex.quote(search)]
+                    inst = subprocess.Popen(command,
                                             stdout=subprocess.PIPE,
                                             stderr=subprocess.PIPE,
                                             stdin=null)
