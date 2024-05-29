@@ -51,7 +51,7 @@ __url__ = 'https://github.com/kyrias/supybot-googler'
 
 from . import config
 from . import plugin
-from imp import reload
+from importlib import reload
 # In case we're being reloaded.
 reload(config)
 reload(plugin)
